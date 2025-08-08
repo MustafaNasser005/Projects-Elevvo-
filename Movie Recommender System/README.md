@@ -1,27 +1,148 @@
-# Movie Recommender System
+# 🎬 Movie Recommendation System
 
-This project provides a simple content-based movie recommender using TMDB datasets.
+A content-based movie recommendation system built with Python that suggests similar movies based on TMDB (The Movie Database) datasets.
 
-## Setup
+![Movie Recommendation System](assets/recommendation%20system.PNG)
 
-1. Create a virtual environment and install dependencies:
-```bash
-pip install -r requirements.txt
+## 📊 Project Overview
+
+This project implements a sophisticated content-based recommendation system that analyzes movie features including:
+- **Genres** (Action, Adventure, Fantasy, etc.)
+- **Keywords** (themes, topics, concepts)
+- **Cast** (top 3 actors)
+- **Crew** (director information)
+- **Overview** (movie description)
+
+The system uses Natural Language Processing (NLP) and Machine Learning techniques to find similar movies based on content similarity.
+
+## 🔧 Technologies Used
+
+- **Python 3.x**
+- **Pandas** - Data manipulation and analysis
+- **NumPy** - Numerical computations
+- **Scikit-learn** - Machine learning algorithms
+  - CountVectorizer for text vectorization
+  - Cosine Similarity for similarity calculation
+- **NLTK** - Natural Language Processing
+  - Porter Stemmer for text normalization
+- **Pickle** - Model serialization
+- **Streamlit** - Web application interface
+
+## 📁 Project Structure
+
+```
+Movie Recommender System/
+├── Movie-Recommendation-System.ipynb    # Main analysis notebook
+├── app.py                               # Streamlit web application
+├── README.md                            # This file
+├── .gitignore                          # Git ignore rules
+├── assets/                              # Model files and images
+│   ├── recommendation system.PNG        # System screenshot
+│   ├── movies.pkl                       # Processed movie data
+│   ├── movie_dict.pkl                   # Movie dictionary
+│   └── similarity.pkl                   # Similarity matrix
+└── tmdb_5000_credits.csv/              # TMDB credits dataset
+    └── tmdb_5000_credits.csv
+└── tmdb_5000_movies.csv/               # TMDB movies dataset
+    └── tmdb_5000_movies.csv
 ```
 
-2. Place model files inside `assets/` (these are not tracked in git):
-- `movies.pkl`
-- `movie_dict.pkl`
-- `similarity.pkl`
+## 🚀 Getting Started
 
-If you don't have these, generate them by running the notebook `Movie-Recommendation-System.ipynb`.
+### Prerequisites
 
-## Run the app
+Install the required Python packages:
 
 ```bash
-python app.py
+pip install pandas numpy scikit-learn nltk streamlit
 ```
 
-## Notes
-- Model files under `assets/` are ignored by git by design.
-- Large CSVs are included for reproducibility; consider using data download scripts for production.
+### Data Processing
+
+1. **Run the Jupyter Notebook** to process the data and generate models:
+```bash
+jupyter notebook Movie-Recommendation-System.ipynb
+```
+
+2. **The notebook will:**
+   - Load and merge TMDB datasets
+   - Extract and process movie features
+   - Apply text preprocessing (stemming, lowercasing)
+   - Create feature vectors using CountVectorizer
+   - Calculate cosine similarity matrix
+   - Save processed data as pickle files
+
+### Running the Web Application
+
+Start the Streamlit app:
+
+```bash
+streamlit run app.py
+```
+
+The application will open in your browser where you can:
+- Select a movie from the dropdown
+- Get personalized movie recommendations
+- View similar movies based on content similarity
+
+## 🔍 How It Works
+
+### 1. Data Preprocessing
+- **Feature Extraction**: Combines overview, genres, keywords, cast, and crew
+- **Text Processing**: Applies stemming and converts to lowercase
+- **Vectorization**: Uses CountVectorizer with 5000 features
+
+### 2. Similarity Calculation
+- **Cosine Similarity**: Measures similarity between movie feature vectors
+- **Recommendation Engine**: Finds movies with highest similarity scores
+
+### 3. Recommendation Algorithm
+```python
+def recommend_movie(movie):
+    index_movie = new_df[new_df['title'] == movie].index[0]
+    distances = similarity[index_movie]
+    movies_list = sorted(list(enumerate(distances)), 
+                        reverse=True, key=lambda x:x[1])[1:6]
+    
+    for i in movies_list:
+        print(new_df.iloc[i[0]].title)
+```
+
+## 📈 Key Features
+
+- **Content-Based Filtering**: Recommends movies based on content similarity
+- **Multi-Feature Analysis**: Considers genres, cast, crew, and plot
+- **NLP Processing**: Advanced text preprocessing for better accuracy
+- **Interactive Web Interface**: User-friendly Streamlit application
+- **Scalable Architecture**: Can be extended with additional features
+
+## 🎯 Example Recommendations
+
+For "Batman Begins", the system recommends:
+- The Dark Knight
+- The Dark Knight Rises
+- Batman
+- Batman & Robin
+
+## 📝 Notes
+
+- **Model Files**: The `.pkl` files in `assets/` are generated by running the notebook
+- **Large Files**: Model files are not tracked in git due to size limitations
+- **Dataset**: Uses TMDB 5000 movies and credits datasets for comprehensive coverage
+- **Performance**: Cosine similarity provides fast and accurate recommendations
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test the recommendation system
+5. Submit a pull request
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+---
+
+**Built with ❤️ using Python and Machine Learning**
