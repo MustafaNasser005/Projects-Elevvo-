@@ -1,0 +1,7 @@
+# Ignore model artifacts
+assets/*.pkl
+assets/*.joblib
+assets/*.pickle
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
